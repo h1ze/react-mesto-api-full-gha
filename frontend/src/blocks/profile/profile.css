@@ -1,0 +1,18 @@
+.profile {
+  box-sizing: border-box;
+  padding: 40px 0 51px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Inter", "Arial", sans-serif;
+  color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  .profile {
+    padding: 40px 0 36px;
+    flex-direction: column;
+    gap: 32px;
+  }
+}

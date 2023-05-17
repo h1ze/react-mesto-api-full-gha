@@ -1,0 +1,11 @@
+.popup__auth-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 60px 36px 25px;
+    background-color: #fff;
+    width: 430px;
+    gap: 32px;
+    text-align: center;
+}

@@ -1,0 +1,16 @@
+.auth__link-to-login {
+    margin-top: 15px;
+    text-align: center;
+    font-family: "Inter", "Arial", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #CCC;
+    text-decoration: none;
+}
+
+.auth__link-to-login:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
