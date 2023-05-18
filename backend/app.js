@@ -12,6 +12,7 @@ const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const REG_EXP = require('./config/regular');
+const cors = require('./middlewares/cors');
 
 app.use(express.json());
 
@@ -24,6 +25,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 app.use(helmet());
 
 app.use(requestLogger); // подключаем логгер запросов до всех обработчиков роутов
+
+app.use(cors); // подключаем обработку CORS запросов
 
 // роуты, не требующие авторизации,
 app.post('/signin', celebrate({
