@@ -5,37 +5,8 @@ import Card from "./Card.js";
 
 
 function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick,onCardLike, onCardDelete}) {
-    // const [userName, setUserName] = React.useState("");
-    // const [userDescription, setUserDescription] = React.useState("");
-    // const [userAvatar, setUserAvatar] = React.useState("");
-    // const [cards, setCards] = React.useState([]);
-
+  
     const currentUser = React.useContext(CurrentUserContext); // Подписываемся на контекст CurrentUserContext
-
-    // React.useEffect(
-    //     () => {
-    //         Promise.all([api.getInitialCards(), api.getProfileData()])
-    //             .then(([initialCards, profileData]) => {
-    //                 // const userID = profileData._id;
-    //                 setCards(initialCards);
-    //                 setUserName(profileData.name);
-    //                 setUserDescription(profileData.about);
-    //                 setUserAvatar(profileData.avatar);
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err); // выведем ошибку в консоль
-    //             });
-    //     }, [])
-
-    // React.useEffect(() => {
-    //     api.getInitialCards()
-    //       .then((initialCards) => {
-    //         setCards(initialCards);
-    //       })
-    //       .catch((err) => {
-    //         console.log(err); // выведем ошибку в консоль
-    //     });
-    //   }, []);
 
     return(
         <main>
@@ -44,7 +15,6 @@ function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick,onCar
                     <div className="profile__avatar">
                         <img
                             className="profile__image"
-                            // style={{ backgroundImage: `url(${userAvatar})` }}
                             src={currentUser.avatar} 
                             alt="Аватарка профиля"
                             />

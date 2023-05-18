@@ -1,9 +1,6 @@
 function PopupWithForm({name, title, children, onClose, isOpen, onSubmit}) {
     return(
         <div className={`${isOpen ? "popup_opened" : ""} popup popup_menu_${name}`}
-            // onClick={((evt) => {
-            //     (evt.target === evt.currentTarget)  && onClose();
-            // })}
             onMouseDown={((evt) => {
                 (evt.target === evt.currentTarget)  && onClose();
             })}

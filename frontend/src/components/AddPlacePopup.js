@@ -6,23 +6,6 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
 const [cardTitle, setCardTitle] = React.useState("");
 const [cardLink, setCardLink] = React.useState("");
 
-// const [newCardData, setNewCardData] = React.useState({
-//     name: "",
-//     link: "",
-// })
-
-// const handleChange = (e) => {
-//     // установите нужное состояние
-//     // используйте e.target.name и e.target.value
-//     console.log(e.target.name, e.target.value);
- 
-//     setNewCardData({
-//         [e.target.name]: e.target.value,
-//     });
-
-//     console.log(newCardData.name, newCardData.link);
-
-// };
 
 const handleCardTitleInputChange = (e) => {
     setCardTitle(e.target.value);
