@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-const { celebrate, Joi } = require('celebrate');
+const { celebrate, Joi, errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const { PORT = 3000 } = process.env;
-const { errors } = require('celebrate');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
@@ -22,6 +22,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 });
 
 app.use(helmet());
+
+app.use(requestLogger); // подключаем логгер запросов до всех обработчиков роутов
 
 // роуты, не требующие авторизации,
 app.post('/signin', celebrate({
@@ -53,6 +55,8 @@ app.use('*', (req, res, next) => {
 });
 
 // обработчики ошибок
+
+app.use(errorLogger); // подключаем логгер ошибок после обработчиков роутов до обработчиков ошибок
 
 app.use(errors()); // обработчик ошибок celebrate
 
