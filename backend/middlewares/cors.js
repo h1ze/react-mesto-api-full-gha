@@ -1,9 +1,10 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  'https://praktikum.tk',
-  'http://praktikum.tk',
+  'http://burnov.nomoredomains.monster',
+  'https://burnov.nomoredomains.monster',
   'localhost:3000',
-  'https://localhost:3000',
+  'http://158.160.24.95',
+  'https://158.160.24.95',
 ];
 
 // const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
