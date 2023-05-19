@@ -29,6 +29,13 @@ app.use(requestLogger); // подключаем логгер запросов д
 
 app.use(cors); // подключаем обработку CORS запросов
 
+// Роут для краш теста сервера
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 // роуты, не требующие авторизации,
 app.post('/signin', celebrate({
   body: Joi.object().keys({
