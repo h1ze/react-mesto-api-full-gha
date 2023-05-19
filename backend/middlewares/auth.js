@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     payload = checkToken(token);
   } catch (err) {
     // отправим ошибку, если не получилось
-    next(new AuthError('Необходима авторизация'));
+    next(err);
   }
 
   req.user = payload; // записываем пейлоуд в объект запроса
