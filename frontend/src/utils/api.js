@@ -4,6 +4,7 @@ class Api {
         this._options = options;
         this._baseUrl = options.baseUrl;
         this._headers = options.headers;
+        this._jwt = localStorage.getItem('jwt');
       }
     
     getInitialCards() {
@@ -96,7 +97,8 @@ _checkResponse(response) {
 const api = new Api({
     baseUrl: "https://api.burnov.nomoredomains.monster",
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `${this._jwt}`
     }
   })
 
