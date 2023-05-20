@@ -4,19 +4,30 @@ class Api {
         this._options = options;
         this._baseUrl = options.baseUrl;
         this._headers = options.headers;
-        this._jwt = localStorage.getItem('jwt');
       }
     
+    _getJwt() {
+        return localStorage.getItem('jwt');
+    }
+    
     getInitialCards() {
+        const jwt = this._getJwt();
         return fetch(`${this._baseUrl}/cards`, {
-            headers: this._headers
+            headers: {
+                ...this._headers,
+                'authorization': jwt,
+            }
         })
             .then(response => this._checkResponse(response));
     };
     
     getProfileData() {
+        const jwt = this._getJwt();
         return fetch(`${this._baseUrl}/users/me`, {
-            headers: this._headers
+            headers: {
+                ...this._headers,
+                'authorization': jwt,
+            }
         })
             .then(response => this._checkResponse(response));
     };
@@ -98,7 +109,6 @@ const api = new Api({
     baseUrl: "https://api.burnov.nomoredomains.monster",
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${this._jwt}`
     }
   })
 
