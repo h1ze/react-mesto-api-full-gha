@@ -7,7 +7,7 @@ const ConflictError = require('../errors/conflict-err');
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send(users))
+    .then((users) => res.send({ data: users }))
     .catch(next);
 };
 
@@ -19,12 +19,11 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => {
-      const data = {
+    .then((user) => res.status(201).send({
+      data: {
         name: user.name, about: user.about, avatar: user.avatar, email: user.email,
-      };
-      res.status(201).send(data);
-    })
+      },
+    }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Некорректные данные при запросе'));
@@ -42,7 +41,7 @@ module.exports.getUserByID = (req, res, next) => {
       throw new NotFoundError('Запрашиваемый пользователь не найден');
     })
     .then((user) => {
-      res.send(user);
+      res.send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -80,7 +79,7 @@ module.exports.updateUser = ((req, res, next) => {
     .orFail(() => {
       throw new NotFoundError('Запрашиваемый пользователь не найден');
     })
-    .then((user) => res.send(user))
+    .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError('Некорректные данные при запросе'));
@@ -99,7 +98,7 @@ module.exports.updateAvatar = ((req, res, next) => {
     .orFail(() => {
       throw new NotFoundError('Запрашиваемый пользователь не найден');
     })
-    .then((user) => res.send(user))
+    .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError('Некорректные данные при запросе'));
