@@ -15,7 +15,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
                 ...this._headers,
-                'authorization': jwt,
+                'authorization': `Bearer ${jwt}`,
             }
         })
             .then(response => this._checkResponse(response));
@@ -26,7 +26,7 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
                 ...this._headers,
-                'authorization': jwt,
+                'authorization': `Bearer ${jwt}`,
             }
         })
             .then(response => this._checkResponse(response));
