@@ -37,7 +37,7 @@ function App() {
         if (jwt) {
           auth.getUserData(jwt)
             .then((responseUserData) => {
-              setUserData(responseUserData.data);
+              setUserData(responseUserData);
               setLoggedIn(true);
               navigate('/', {replace: true});
             })
