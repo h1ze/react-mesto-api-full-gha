@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
 
     // убеждаемся, что он есть или начинается с Bearer
     if (!authorization || !authorization.startsWith('Bearer ')) {
-      next(new AuthError('Необходима авторизация'));
+      throw new AuthError('Необходима авторизация');
     }
 
     // Убираем Bearer, оставляем только строку с токеном
@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     payload = checkToken(token);
   } catch (err) {
     // отправим ошибку, если не получилось
-    next(err);
+    next(new AuthError('Проблемы с авторизацией'));
   }
 
   req.user = payload; // записываем пейлоуд в объект запроса
