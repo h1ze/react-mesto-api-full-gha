@@ -94,7 +94,7 @@ _checkResponse(response) {
 //   })
 
 const api = new Api({
-    baseUrl: "https://api.burnov.nomoredomains.monster",
+    baseUrl: "http://api.burnov.nomoredomains.monster",
     headers: {
       'Content-Type': 'application/json'
     }

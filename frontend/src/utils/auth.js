@@ -90,7 +90,7 @@ class Auth {
 }
 
 const auth = new Auth({
-    baseUrl: "https://api.burnov.nomoredomains.monster",
+    baseUrl: "http://api.burnov.nomoredomains.monster",
     headers: {
       'Content-Type': 'application/json'
     }
