@@ -13,7 +13,7 @@ const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const REG_EXP = require('./config/regular');
-// const cors = require('./middlewares/cors');
+const cors = require('./middlewares/cors');
 
 app.use(express.json());
 
@@ -27,14 +27,14 @@ app.use(helmet());
 
 app.use(requestLogger); // подключаем логгер запросов до всех обработчиков роутов
 
-// app.use(cors); // подключаем обработку CORS запросов
+app.use(cors); // подключаем обработку CORS запросов
 
 // Роут для краш теста сервера
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 // роуты, не требующие авторизации,
 app.post('/signin', celebrate({
