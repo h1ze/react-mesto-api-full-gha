@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { celebrate, Joi, errors } = require('celebrate');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+// const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -25,16 +25,16 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
 
 app.use(helmet());
 
-app.use(requestLogger); // подключаем логгер запросов до всех обработчиков роутов
+// app.use(requestLogger); // подключаем логгер запросов до всех обработчиков роутов
 
 app.use(cors); // подключаем обработку CORS запросов
 
 // Роут для краш теста сервера
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+// app.get('/crash-test', () => {
+//   setTimeout(() => {
+//     throw new Error('Сервер сейчас упадёт');
+//   }, 0);
+// });
 
 // роуты, не требующие авторизации,
 app.post('/signin', celebrate({
@@ -67,7 +67,7 @@ app.use('*', (req, res, next) => {
 
 // обработчики ошибок
 
-app.use(errorLogger); // подключаем логгер ошибок после обработчиков роутов до обработчиков ошибок
+// app.use(errorLogger); подключаем логгер ошибок после обработчиков роутов до обработчиков ошибок
 
 app.use(errors()); // обработчик ошибок celebrate
 
