@@ -52,7 +52,7 @@ function App() {
             Promise.all([api.getInitialCards(), api.getProfileData()])
                 .then(([initialCards, profileData]) => {
                     setCards(initialCards);
-                    setCurrentUser(profileData);
+                    setCurrentUser(profileData.data);
                 })
                 .catch((err) => {
                     console.log(err); // выведем ошибку в консоль
