@@ -11,23 +11,21 @@ class Api {
     }
     
     getInitialCards() {
-        const jwt = this._getJwt();
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
                 ...this._headers,
-                'authorization': `Bearer ${jwt}`,
-            }
+                'authorization': `Bearer ${this._getJwt()}`,
+            },
         })
             .then(response => this._checkResponse(response));
     };
     
     getProfileData() {
-        const jwt = this._getJwt();
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
                 ...this._headers,
-                'authorization': `Bearer ${jwt}`,
-            }
+                'authorization': `Bearer ${this._getJwt()}`,
+            },
         })
             .then(response => this._checkResponse(response));
     };
@@ -35,7 +33,10 @@ class Api {
     setProfileData(profileFormData) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                'authorization': `Bearer ${this._getJwt()}`,
+            },
             body: JSON.stringify({
                 name: profileFormData.name, // Здесь нужно забрать имя пользователя из формы
                 about: profileFormData.about, // Здесь нужно забрать информацию о пользователе из формы
@@ -47,7 +48,10 @@ class Api {
     setNewCard(newCardData) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                'authorization': `Bearer ${this._getJwt()}`,
+            },
             body: JSON.stringify({
                 name: newCardData.name, // Здесь нужно забрать название карточки из формы
                 link: newCardData.link,// Здесь нужно забрать ссылку на изображение из формы
@@ -59,7 +63,10 @@ class Api {
     deleteCard(cardID) {
         return fetch(`${this._baseUrl}/cards/${cardID}`, {
             method: 'DELETE',
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                'authorization': `Bearer ${this._getJwt()}`,
+            },
         })
             .then(response => this._checkResponse(response));
     };
@@ -68,7 +75,10 @@ class Api {
     changeLikeCardStatus(cardID, isLiked) {
         return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
             method: `${isLiked ? 'DELETE' : 'PUT'}`,
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                'authorization': `Bearer ${this._getJwt()}`,
+            },
         })
             .then(response => this._checkResponse(response));
     };
@@ -77,7 +87,10 @@ class Api {
     setAvatar({avatar}) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                'authorization': `Bearer ${this._getJwt()}`,
+            },
             body: JSON.stringify({
                 avatar, // Здесь должна быть ссылка на новый аватар
               })
