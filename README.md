@@ -6,7 +6,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.24.95
+IP 158.160.24.95
 
 Frontend https://burnov.nomoredomains.monster/
 
