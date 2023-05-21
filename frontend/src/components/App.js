@@ -92,7 +92,7 @@ function App() {
   function handleUpdateUser(profileData) {
     api.setProfileData(profileData)
       .then((responseProfileData)=> {
-        setCurrentUser(responseProfileData);
+        setCurrentUser(responseProfileData.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -103,7 +103,7 @@ function App() {
   function handleUpdateAvatar(avatarLink) {
     api.setAvatar(avatarLink)
       .then((responseProfileData)=> {
-        setCurrentUser(responseProfileData);
+        setCurrentUser(responseProfileData.data);
         closeAllPopups();
       })
       .catch((err) => {
