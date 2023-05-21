@@ -9,15 +9,10 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
     const [profileDescription, setProfileDescription] = React.useState('');
 
     const handleProfileNameInputChange = (e) => {
-        // установите нужное состояние
-        // используйте e.target.name и e.target.value
-        // [e.target.name]:  e.target.value
         setProfileName(e.target.value);
     };
 
     const handleProfileDescriptionInputChange = (e) => {
-        // установите нужное состояние
-        // используйте e.target.name и e.target.value
         setProfileDescription(e.target.value);
     };
 

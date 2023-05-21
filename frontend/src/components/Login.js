@@ -5,13 +5,10 @@ function Login({onLogin}) {
     const [loginData, setLoginData] = useState({});
 
     const handleChange = (e) => {
-    // установите нужное состояние
-    // используйте e.target.name и e.target.value
- 
-    setLoginData({
-        ...loginData,
-        [e.target.name]: e.target.value,
-    });
+        setLoginData({
+            ...loginData,
+            [e.target.name]: e.target.value,
+        });
     };
 
     

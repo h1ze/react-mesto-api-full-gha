@@ -110,14 +110,6 @@ _checkResponse(response) {
 
 // Создание экземпляра класса API
 
-// const api = new Api({
-//     baseUrl: "https://mesto.nomoreparties.co/v1/cohort-59",
-//     headers: {
-//       authorization: '01eb8e66-73ce-49ed-89f5-929714990adb',
-//       'Content-Type': 'application/json'
-//     }
-//   })
-
 const api = new Api({
     baseUrl: "https://api.burnov.nomoredomains.monster",
     headers: {
