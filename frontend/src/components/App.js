@@ -51,7 +51,7 @@ function App() {
         () => { 
             Promise.all([api.getInitialCards(), api.getProfileData()])
                 .then(([initialCards, profileData]) => {
-                    setCards(initialCards);
+                    setCards(initialCards.data);
                     setCurrentUser(profileData.data);
                 })
                 .catch((err) => {
@@ -67,12 +67,12 @@ function App() {
 
   function handleCardLike(card) {
     // проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(userID => userID === currentUser._id);
     
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, isLiked)
-      .then((newCard) => {
-          setCards((state) => state.map(c => c._id === card._id ? newCard : c));
+      .then((responseCard) => {
+          setCards((state) => state.map(stateCardData => stateCardData._id === card._id ? responseCard : stateCardData));
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -114,7 +114,7 @@ function App() {
   function handleAddPlaceSubmit(newCardData) {
     api.setNewCard(newCardData)
       .then((responseNewCardData)=> {
-        setCards([responseNewCardData, ...cards]); 
+        setCards([responseNewCardData.data, ...cards]); 
         closeAllPopups();
       })
       .catch((err) => {
