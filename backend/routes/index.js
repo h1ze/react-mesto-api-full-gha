@@ -12,9 +12,8 @@ const auth = require('../middlewares/auth');
 
 mainRouter.use('/signin', signin);
 mainRouter.use('/signup', signup);
-mainRouter.use(auth);
-mainRouter.use('/users', users);
-mainRouter.use('/cards', cards);
+mainRouter.use('/users', auth, users);
+mainRouter.use('/cards', auth, cards);
 mainRouter.use('*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
