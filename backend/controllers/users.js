@@ -1,3 +1,4 @@
+const { ValidationError, CastError, DocumentNotFoundError } = require('mongoose').Error;
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const { generateToken } = require('../utils/token');
@@ -25,7 +26,7 @@ module.exports.createUser = (req, res, next) => {
       },
     }))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err instanceof ValidationError) {
         next(new BadRequestError('Некорректные данные при запросе'));
       } else if (err.code === 11000) {
         next(new ConflictError('Email должен быть уникальным'));
@@ -37,15 +38,15 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.getUserByID = (req, res, next) => {
   User.findById(req.params.userId)
-    .orFail(() => {
-      throw new NotFoundError('Запрашиваемый пользователь не найден');
-    })
+    .orFail()
     .then((user) => {
       res.send({ data: user });
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err instanceof CastError) {
         next(new BadRequestError('Некорректные данные при запросе'));
+      } else if (err instanceof DocumentNotFoundError) {
+        next(NotFoundError('Запрашиваемый пользователь не найден'));
       } else {
         next(err);
       }
@@ -54,15 +55,13 @@ module.exports.getUserByID = (req, res, next) => {
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail(() => {
-      throw new NotFoundError('Запрашиваемый пользователь не найден');
-    })
+    .orFail()
     .then((user) => {
       res.send({ data: user });
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Некорректные данные при запросе'));
+      if (err instanceof DocumentNotFoundError) {
+        next(NotFoundError('Запрашиваемый пользователь не найден'));
       } else {
         next(err);
       }
@@ -76,13 +75,13 @@ module.exports.updateUser = ((req, res, next) => {
     new: true, // обработчик then получит на вход обновлённую запись
     runValidators: true, // данные будут валидированы перед изменением
   })
-    .orFail(() => {
-      throw new NotFoundError('Запрашиваемый пользователь не найден');
-    })
+    .orFail()
     .then((user) => res.send({ data: user }))
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
+      if (err instanceof ValidationError) {
         next(new BadRequestError('Некорректные данные при запросе'));
+      } else if (err instanceof DocumentNotFoundError) {
+        next(NotFoundError('Запрашиваемый пользователь не найден'));
       } else {
         next(err);
       }
@@ -95,13 +94,13 @@ module.exports.updateAvatar = ((req, res, next) => {
     new: true, // обработчик then получит на вход обновлённую запись
     runValidators: true, // данные будут валидированы перед изменением
   })
-    .orFail(() => {
-      throw new NotFoundError('Запрашиваемый пользователь не найден');
-    })
+    .orFail()
     .then((user) => res.send({ data: user }))
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
+      if (err instanceof ValidationError) {
         next(new BadRequestError('Некорректные данные при запросе'));
+      } else if (err instanceof DocumentNotFoundError) {
+        next(NotFoundError('Запрашиваемый пользователь не найден'));
       } else {
         next(err);
       }

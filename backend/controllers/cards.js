@@ -39,7 +39,7 @@ module.exports.deleteCardByID = (req, res, next) => {
       if (err instanceof CastError) {
         next(new BadRequestError('Некорректные данные при запросе'));
       } else if (err instanceof DocumentNotFoundError) {
-        throw new NotFoundError('Не найдена карточка с таким ID');
+        next(NotFoundError('Не найдена карточка с таким ID'));
       } else {
         next(err);
       }
@@ -60,7 +60,7 @@ module.exports.likeCard = (req, res, next) => {
       if (err instanceof CastError) {
         next(new BadRequestError('Некорректные данные при запросе'));
       } else if (err instanceof DocumentNotFoundError) {
-        throw new NotFoundError('Не найдена карточка с таким ID');
+        next(NotFoundError('Не найдена карточка с таким ID'));
       } else {
         next(err);
       }
@@ -73,9 +73,7 @@ module.exports.dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } }, // убрать _id из массива
     { new: true },
   )
-    .orFail(() => {
-      throw new NotFoundError('Не найдена карточка с таким ID');
-    })
+    .orFail()
     .then((card) => {
       res.send(card);
     })
@@ -83,7 +81,7 @@ module.exports.dislikeCard = (req, res, next) => {
       if (err instanceof CastError) {
         next(new BadRequestError('Некорректные данные при запросе'));
       } else if (err instanceof DocumentNotFoundError) {
-        throw new NotFoundError('Не найдена карточка с таким ID');
+        next(NotFoundError('Не найдена карточка с таким ID'));
       } else {
         next(err);
       }
