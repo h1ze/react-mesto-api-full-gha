@@ -1,4 +1,5 @@
 const mainRouter = require('express').Router();
+const NotFoundError = require('../errors/not-found-err');
 
 // Импорт роутеров
 const cards = require('./cards');
@@ -14,3 +15,8 @@ mainRouter.use('/signup', signup);
 mainRouter.use(auth);
 mainRouter.use('/users', users);
 mainRouter.use('/cards', cards);
+mainRouter.use('*', (req, res, next) => {
+  next(new NotFoundError('Страница не найдена'));
+});
+
+module.exports = mainRouter;

@@ -2,17 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-const { celebrate, Joi, errors } = require('celebrate');
+// const { celebrate, Joi, errors } = require('celebrate');
+const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const { PORT = 3000 } = process.env;
-const userRouter = require('./routes/users');
-const cardRouter = require('./routes/cards');
-const { login, createUser } = require('./controllers/users');
-const auth = require('./middlewares/auth');
-const NotFoundError = require('./errors/not-found-err');
-const REG_EXP = require('./config/regular');
+// const userRouter = require('./routes/users');
+// const cardRouter = require('./routes/cards');
+// const { login, createUser } = require('./controllers/users');
+// const auth = require('./middlewares/auth');
+// const NotFoundError = require('./errors/not-found-err');
+// const REG_EXP = require('./config/regular');
 const cors = require('./middlewares/cors');
 
 app.use(express.json());
@@ -36,34 +37,35 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-// роуты, не требующие авторизации,
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), login);
+// роуты, не требующие авторизации
 
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(REG_EXP),
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), createUser);
+// app.post('/signin', celebrate({
+//   body: Joi.object().keys({
+//     email: Joi.string().required().email(),
+//     password: Joi.string().required(),
+//   }),
+// }), login);
+
+// app.post('/signup', celebrate({
+//   body: Joi.object().keys({
+//     name: Joi.string().min(2).max(30),
+//     about: Joi.string().min(2).max(30),
+//     avatar: Joi.string().pattern(REG_EXP),
+//     email: Joi.string().required().email(),
+//     password: Joi.string().required(),
+//   }),
+// }), createUser);
 
 // авторизация
-app.use(auth);
+// app.use(auth);
 
 // роуты, которым авторизация нужна
-app.use('/users', userRouter);
-app.use('/cards', cardRouter);
+// app.use('/users', userRouter);
+// app.use('/cards', cardRouter);
 
-app.use('*', (req, res, next) => {
-  next(new NotFoundError('Страница не найдена'));
-});
+// app.use('*', (req, res, next) => {
+//   next(new NotFoundError('Страница не найдена'));
+// });
 
 // обработчики ошибок
 
