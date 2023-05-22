@@ -93,29 +93,47 @@ module.exports.getUser = (req, res, next) => {
   findUser(req.params.userId, res, next);
 };
 
-module.exports.updateUser = ((req, res, next) => {
-  // обновим имя найденного по _id пользователя
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, {
-    new: true, // обработчик then получит на вход обновлённую запись
-    runValidators: true, // данные будут валидированы перед изменением
-  })
-    .orFail()
-    .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err instanceof ValidationError) {
-        next(new BadRequestError('Некорректные данные при запросе'));
-      } else if (err instanceof DocumentNotFoundError) {
-        next(NotFoundError('Запрашиваемый пользователь не найден'));
-      } else {
-        next(err);
-      }
-    });
-});
+// module.exports.updateUser = ((req, res, next) => {
+//   // обновим имя найденного по _id пользователя
+//   const { name, about } = req.body;
+//   User.findByIdAndUpdate(req.user._id, { name, about }, {
+//     new: true, // обработчик then получит на вход обновлённую запись
+//     runValidators: true, // данные будут валидированы перед изменением
+//   })
+//     .orFail()
+//     .then((user) => res.send({ data: user }))
+//     .catch((err) => {
+//       if (err instanceof ValidationError) {
+//         next(new BadRequestError('Некорректные данные при запросе'));
+//       } else if (err instanceof DocumentNotFoundError) {
+//         next(NotFoundError('Запрашиваемый пользователь не найден'));
+//       } else {
+//         next(err);
+//       }
+//     });
+// });
 
-module.exports.updateAvatar = ((req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar }, {
+// module.exports.updateAvatar = ((req, res, next) => {
+//   const { avatar } = req.body;
+//   User.findByIdAndUpdate(req.user._id, { avatar }, {
+//     new: true, // обработчик then получит на вход обновлённую запись
+//     runValidators: true, // данные будут валидированы перед изменением
+//   })
+//     .orFail()
+//     .then((user) => res.send({ data: user }))
+//     .catch((err) => {
+//       if (err instanceof ValidationError) {
+//         next(new BadRequestError('Некорректные данные при запросе'));
+//       } else if (err instanceof DocumentNotFoundError) {
+//         next(NotFoundError('Запрашиваемый пользователь не найден'));
+//       } else {
+//         next(err);
+//       }
+//     });
+// });
+
+function updateUserData(userId, data, res, next) {
+  User.findByIdAndUpdate(userId, { data }, {
     new: true, // обработчик then получит на вход обновлённую запись
     runValidators: true, // данные будут валидированы перед изменением
   })
@@ -130,7 +148,17 @@ module.exports.updateAvatar = ((req, res, next) => {
         next(err);
       }
     });
-});
+}
+
+module.exports.updateUserInfo = (req, res, next) => {
+  const { name, about } = req.body;
+  updateUserData(req.user._id, { name, about }, res, next);
+};
+
+module.exports.updateAvatar = (req, res, next) => {
+  const { avatar } = req.body;
+  updateUserData(req.user._id, { avatar }, res, next);
+};
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
