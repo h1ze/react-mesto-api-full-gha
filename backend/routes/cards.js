@@ -6,30 +6,30 @@ const {
   createCard, deleteCardByID, getCards, likeCard, dislikeCard,
 } = require('../controllers/cards');
 
-cardRouter.get('/cards', getCards);
+cardRouter.get('/', getCards);
 
-cardRouter.delete('/cards/:cardId', celebrate({
+cardRouter.delete('/:cardId', celebrate({
   // валидируем cardId
   params: Joi.object().keys({
     cardId: Joi.string().required().length(24).hex(),
   }),
 }), deleteCardByID);
 
-cardRouter.post('/cards', celebrate({
+cardRouter.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     link: Joi.string().required().pattern(REG_EXP),
   }),
 }), createCard);
 
-cardRouter.put('/cards/:cardId/likes', celebrate({
+cardRouter.put('/:cardId/likes', celebrate({
   // валидируем cardId
   params: Joi.object().keys({
     cardId: Joi.string().required().length(24).hex(),
   }),
 }), likeCard);
 
-cardRouter.delete('/cards/:cardId/likes', celebrate({
+cardRouter.delete('/:cardId/likes', celebrate({
   // валидируем cardId
   params: Joi.object().keys({
     cardId: Joi.string().required().length(24).hex(),

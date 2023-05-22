@@ -6,25 +6,25 @@ const {
   getUserByID, getUsers, updateUser, updateAvatar, getCurrentUser,
 } = require('../controllers/users');
 
-userRouter.get('/users', getUsers);
+userRouter.get('/', getUsers);
 
-userRouter.get('/users/me', getCurrentUser);
+userRouter.get('/me', getCurrentUser);
 
-userRouter.get('/users/:userId', celebrate({
+userRouter.get('/:userId', celebrate({
   // валидируем userId
   params: Joi.object().keys({
     cardId: Joi.string().required().length(24).hex(),
   }),
 }), getUserByID);
 
-userRouter.patch('/users/me', celebrate({
+userRouter.patch('/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     about: Joi.string().required().min(2).max(30),
   }),
 }), updateUser);
 
-userRouter.patch('/users/me/avatar', celebrate({
+userRouter.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
     avatar: Joi.string().required().pattern(REG_EXP),
   }),
