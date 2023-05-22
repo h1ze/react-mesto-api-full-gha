@@ -8,6 +8,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const { PORT = 3000 } = process.env;
+const mainRouter = require('./routes/index');
 // const userRouter = require('./routes/users');
 // const cardRouter = require('./routes/cards');
 // const { login, createUser } = require('./controllers/users');
@@ -36,6 +37,8 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
+
+app.use(mainRouter);
 
 // роуты, не требующие авторизации
 
