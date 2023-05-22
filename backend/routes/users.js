@@ -3,7 +3,7 @@ const { celebrate, Joi } = require('celebrate');
 const REG_EXP = require('../config/regular');
 
 const {
-  getUserByID, getUsers, updateUser, updateAvatar, getCurrentUser,
+  getUser, getUsers, updateUser, updateAvatar, getCurrentUser,
 } = require('../controllers/users');
 
 userRouter.get('/', getUsers);
@@ -15,7 +15,7 @@ userRouter.get('/:userId', celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().required().length(24).hex(),
   }),
-}), getUserByID);
+}), getUser);
 
 userRouter.patch('/me', celebrate({
   body: Joi.object().keys({
