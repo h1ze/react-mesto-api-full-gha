@@ -133,7 +133,7 @@ module.exports.getUser = (req, res, next) => {
 // });
 
 function updateUserData(userId, data, res, next) {
-  User.findByIdAndUpdate(userId, { data }, {
+  User.findByIdAndUpdate(userId, data, {
     new: true, // обработчик then получит на вход обновлённую запись
     runValidators: true, // данные будут валидированы перед изменением
   })
