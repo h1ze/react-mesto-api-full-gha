@@ -76,7 +76,7 @@ function findUser(id, res, next) {
     })
     .catch((err) => {
       if (err instanceof DocumentNotFoundError) {
-        next(NotFoundError(`Пользователь с ID ${id} не найден.`));
+        next(new NotFoundError(`Пользователь с ID ${id} не найден.`));
       } else if (err instanceof CastError) {
         next(new BadRequestError('Некорректные данные при запросе'));
       } else {
