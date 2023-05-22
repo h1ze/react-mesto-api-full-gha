@@ -13,7 +13,7 @@ userRouter.get('/me', getCurrentUser);
 userRouter.get('/:userId', celebrate({
   // валидируем userId
   params: Joi.object().keys({
-    cardId: Joi.string().required().length(24).hex(),
+    userId: Joi.string().required().length(24).hex(),
   }),
 }), getUser);
 
