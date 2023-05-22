@@ -38,7 +38,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(mainRouter);
+app.use('/', mainRouter);
 
 // роуты, не требующие авторизации
 
