@@ -3,7 +3,7 @@ const { celebrate, Joi } = require('celebrate');
 const { createUser } = require('../controllers/signup');
 const REG_EXP = require('../config/regular');
 
-signupRouter.post('/signup', celebrate({
+signupRouter.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
