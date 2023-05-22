@@ -1,6 +1,6 @@
 const signupRouter = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { createUser } = require('../controllers/users');
+const { createUser } = require('../controllers/signup');
 const REG_EXP = require('../config/regular');
 
 signupRouter.post('/signup', celebrate({
