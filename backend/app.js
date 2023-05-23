@@ -7,13 +7,13 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const mainErorHandler = require('./middlewares/mainErorHandler');
 
 const app = express();
-const { PORT = 3000 } = process.env;
+const { PORT, DATABASE } = require('./config/configuration');
 const mainRouter = require('./routes/index');
 const cors = require('./middlewares/cors');
 
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
+mongoose.connect(DATABASE, {
   useNewUrlParser: true,
   // useCreateIndex: true,
   // useFindAndModify: false,
