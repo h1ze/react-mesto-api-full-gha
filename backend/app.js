@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const mainErorHandler = require('./middlewares/mainErorHandler');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -41,16 +42,7 @@ app.use(errors()); // обработчик ошибок celebrate
 
 // централизованный обработчик ошибок
 
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    message: statusCode === 500
-      ? 'На сервере произошла ошибка'
-      : message,
-  });
-
-  next();
-});
+app.use(mainErorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}!`);
